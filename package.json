@@ -1,0 +1,52 @@
+{
+  "name": "datepicker",
+  "version": "1.0.0",
+  "main": "./libs/datepicker.min.js",
+  "module": "./libs/datepicker.min.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "NODE_ENV=production rollup -c",
+    "watch": "NODE_ENV=development rollup -c -w",
+    "storybook": "start-storybook",
+    "lint": "eslint ./src"
+  },
+  "peerDependencies": {
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/plugin-transform-runtime": "^7.8.3",
+    "@babel/preset-env": "^7.8.4",
+    "@babel/preset-react": "^7.8.3",
+    "@rollup/plugin-commonjs": "^11.0.2",
+    "@rollup/plugin-image": "^2.0.4",
+    "@rollup/plugin-node-resolve": "^7.1.1",
+    "@storybook/react": "^5.3.14",
+    "autoprefixer": "^9.7.4",
+    "babel-loader": "^8.0.6",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
+    "cssnano": "^4.1.10",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.18.3",
+    "eslint-plugin-react-hooks": "^1.7.0",
+    "node-sass": "^4.13.1",
+    "rollup": "^1.31.1",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-filesize": "^6.2.1",
+    "rollup-plugin-peer-deps-external": "^2.2.2",
+    "rollup-plugin-postcss": "^2.1.1",
+    "rollup-plugin-sass": "^1.2.2",
+    "rollup-plugin-terser": "^5.2.0",
+    "sass-loader": "^8.0.2"
+  },
+  "dependencies": {
+    "@babel/runtime-corejs3": "^7.8.4",
+    "i18next": "^19.3.2",
+    "prop-types": "^15.7.2",
+    "react-i18next": "^11.3.3"
+  }
+}
