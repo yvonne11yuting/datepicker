@@ -1,8 +1,8 @@
 {
   "name": "datepicker",
   "version": "1.0.0",
-  "main": "./libs/datepicker.min.js",
-  "module": "./libs/datepicker.min.js",
+  "main": "./libs/calendar_datepicker.js",
+  "module": "./libs/calendar_datepicker.js",
   "license": "MIT",
   "scripts": {
     "build": "NODE_ENV=production rollup -c",
@@ -40,6 +40,7 @@
     "node-sass": "^4.13.1",
     "rollup": "^1.31.1",
     "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-conditional": "^3.1.2",
     "rollup-plugin-filesize": "^6.2.1",
     "rollup-plugin-peer-deps-external": "^2.2.2",
     "rollup-plugin-postcss": "^2.1.1",
@@ -49,7 +50,6 @@
   "dependencies": {
     "@babel/runtime-corejs3": "^7.8.4",
     "prop-types": "^15.7.2",
-    "react-i18next": "^11.3.3",
     "react-onclickoutside": "^6.9.0"
   }
 }

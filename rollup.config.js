@@ -12,21 +12,24 @@ import postcss from 'postcss';
 import cssnano from 'cssnano';
 import filesize from 'rollup-plugin-filesize';
 import alias from '@rollup/plugin-alias';
+import conditional from 'rollup-plugin-conditional';
 
-const isDevMode = process.env.NODE_ENV === 'development';
+const isDev = process.env.NODE_ENV === 'development';
 const input = './src/index';
+
 const globals = {
   react: 'React',
+  'react-dom': 'ReactDOM',
   'prop-types': 'PropTypes',
 };
 
-export default isDevMode ? [{
+export default [{
   input,
   output: [
     {
-      file: './libs/calendar.js',
+      file: './libs/calendar_datepicker.js',
       format: 'es',
-      name: 'calendar',
+      name: 'calendar_datepicker',
       globals,
     },
   ],
@@ -49,47 +52,12 @@ export default isDevMode ? [{
       insert: true,
       processor: (css) => postcss([
         autoprefixer({ grid: 'autoplace' }),
-      ]).process(css, { from: undefined }).then((result) => result.css),
-    }),
-    image(),
-    filesize(),
-  ],
-  external: ['react', 'react-dom'],
-}] : [{
-  input,
-  output: [
-    {
-      file: './libs/calendar.min.js',
-      format: 'es',
-      name: 'calendar',
-      globals,
-    },
-  ],
-  plugins: [
-    alias({
-      entries: {
-        '@': './src',
-      },
-    }),
-    resolve({
-      extensions: ['.js', '.jsx'],
-    }),
-    peerDepsExternal(),
-    commonjs(),
-    babel({
-      runtimeHelpers: true,
-      exclude: ['node_modules/**'],
-    }),
-    sass({
-      insert: true,
-      processor: (css) => postcss([
-        autoprefixer({ grid: 'autoplace' }),
         cssnano,
       ]).process(css, { from: undefined }).then((result) => result.css),
     }),
     image(),
-    terser(),
     filesize(),
+    conditional(!isDev, [terser()]),
   ],
   external: ['react', 'react-dom'],
 }];
