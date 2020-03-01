@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import LOCALES from '../../locales';
@@ -109,15 +110,15 @@ const Calendar = ({ lang, date: initDate, onSelect }) => {
     }
   };
 
-  const handleAction = (e) => {
+  const handleAction = (e, moveVal = 0) => {
     const $button = e.target.closest('button');
-    if (!$button) return;
-
     const { action } = $button.dataset;
+    if (!action) return;
+
     if (action === 'mode') {
       setMode((curMode) => (curMode + 1 > 2 ? 0 : curMode + 1));
     } else {
-      chageRenderDate(mode, action === 'prev' ? -1 : 1);
+      chageRenderDate(mode, moveVal || action === 'prev' ? -1 : 1);
     }
   };
 
@@ -148,6 +149,16 @@ const Calendar = ({ lang, date: initDate, onSelect }) => {
     }
   };
 
+  const handleKeyboardActionEvent = (e, handler) => {
+    const isLeft = (e.code && e.code === 'ArrowLeft') || (e.keyCode && e.keyCode === 37);
+    const isRight = (e.code && e.code === 'ArrowRight') || (e.keyCode && e.keyCode === 39);
+    if (isLeft) {
+      handler(e, -1);
+    } else if (isRight) {
+      handler(e, 1);
+    }
+  };
+
   return (
     <div className="rt-calendar">
       <div className="rt-calendar__header">
@@ -156,11 +167,31 @@ const Calendar = ({ lang, date: initDate, onSelect }) => {
           role="button"
           tabIndex="0"
           onClick={handleAction}
-          onKeyDown={handleAction}
+          onKeyDown={(e) => handleKeyboardActionEvent(e, handleAction)}
         >
-          <button data-action="prev" className="rt-calendar__reset-btn rt-calendar__icon" type="button"><img src={Iconleft} alt="back" /></button>
-          <button data-action="mode" className="rt-calendar__reset-btn rt-calendar__action-btn" type="button">{modeStr[mode]}</button>
-          <button data-action="next" className="rt-calendar__reset-btn rt-calendar__icon" type="button"><img src={IconRight} alt="next month" /></button>
+          <button
+            data-action="prev"
+            className="rt-calendar__reset-btn rt-calendar__icon"
+            type="button"
+            aria-label="previous"
+          >
+            <img src={Iconleft} alt="back" />
+          </button>
+          <button
+            data-action="mode"
+            className="rt-calendar__reset-btn rt-calendar__action-btn"
+            type="button"
+            aria-label="change mode"
+          >
+            {modeStr[mode]}
+          </button>
+          <button
+            data-action="next"
+            className="rt-calendar__reset-btn rt-calendar__icon"
+            type="button"
+          >
+            <img src={IconRight} alt="next month" />
+          </button>
         </div>
       </div>
       <div className="rt-calendar__main">
@@ -176,8 +207,8 @@ const Calendar = ({ lang, date: initDate, onSelect }) => {
                 className="rt-calendar__date"
                 tabIndex="0"
                 role="button"
+                aria-label="select date"
                 onClick={handleDateSelect}
-                onKeyDown={handleDateSelect}
               >
                 { getDays({ ...renderDate, selectedDate }).map(({
                   isCurMonth,
@@ -210,8 +241,8 @@ const Calendar = ({ lang, date: initDate, onSelect }) => {
               className="rt-calendar__month"
               tabIndex="0"
               role="button"
+              aria-label="select month"
               onClick={handleMonthSelect}
-              onKeyDown={handleMonthSelect}
             >
               {
                 Object.entries(LANG_SRC.MONTH).map(([month, monthText]) => (
@@ -233,8 +264,8 @@ const Calendar = ({ lang, date: initDate, onSelect }) => {
               className="rt-calendar__year"
               tabIndex="0"
               role="button"
+              aria-label="select year"
               onClick={handleYearSelect}
-              onKeyDown={handleYearSelect}
             >
               {
                 Array(12).fill(yearRangeStart - 1).map((year, index) => {

@@ -15,11 +15,13 @@ $dark: #191919;
 }
 
 .rt-calendar {
-  font-family: "Noto Sans CJK TC", "PingFang TC", "Microsoft JhengHei", "Helvetica Neue", Helvetica, Verdana, sans-serif;
+  font-family: "Noto Sans CJK TC", "PingFang TC", "Microsoft JhengHei", Verdana, sans-serif;
   width: 260px;
+  padding: 10px 0;
   color: $dark;
   font-size: 13px;
   font-weight: 500;
+  border: 1px solid $gray;
   background: $white;
 }
 
@@ -44,7 +46,8 @@ $dark: #191919;
 }
 
 .rt-calendar__action-btn {
-  padding: 6px 45px;
+  flex: 1;
+  border-radius: 3px;
   &:hover {
     background-color: $gray;
   }
