@@ -6,9 +6,10 @@
   "license": "MIT",
   "scripts": {
     "build": "NODE_ENV=production rollup -c",
-    "watch": "NODE_ENV=development rollup -c -w",
+    "dev": "NODE_ENV=development rollup -c",
+    "watch": "yarn dev -w",
     "storybook": "start-storybook",
-    "storybook:build": "build-storybook -c .storybook -o ./demo",
+    "storybook:build": "build-storybook -c .storybook -o demo",
     "lint": "eslint ./src"
   },
   "peerDependencies": {
