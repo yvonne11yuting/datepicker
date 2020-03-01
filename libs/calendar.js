@@ -3329,7 +3329,6 @@ var Calendar = function Calendar(_ref) {
   var lang = _ref.lang,
       rawDate = _ref.date,
       onSelect = _ref.onSelect;
-  // const isInit = useRef(true);
   var today = new Date();
   var todayStr = today.toLocaleDateString('zh').replace(/\//g, '');
   var initDate = isValidDate(rawDate) ? rawDate : today;
@@ -3361,7 +3360,6 @@ var Calendar = function Calendar(_ref) {
   }, [renderDate]);
   useEffect(function () {
     if (isValidDate(rawDate)) {
-      console.log(rawDate);
       var formattedDateStr = rawDate.replace(/(-)0(\d{1})/g, '$1$2');
       setRenderDate(dateToObj(rawDate));
       setSelectedDateStr(formattedDateStr);
@@ -4020,7 +4018,7 @@ function onClickOutsideHOC(WrappedComponent, config) {
   }, _temp;
 }
 
-___$insertStyle(".rt-datepicker {\n  position: relative;\n  display: inline-block;\n}\n\n.rt-datepicker__input {\n  padding: 8px;\n  font-size: 13px;\n  border-radius: 3px;\n  border: 1px solid #eee;\n  outline: none;\n}\n.rt-datepicker__input:focus {\n  border-color: #43b2da;\n}\n\n.rt-datepicker__calendar {\n  position: absolute;\n  left: 0;\n}");
+___$insertStyle(".rt-datepicker {\n  position: relative;\n  display: inline-block;\n}\n\n.rt-datepicker__input {\n  padding: 8px;\n  font-size: 13px;\n  border-radius: 3px;\n  border: 1px solid #eee;\n  outline: none;\n}\n.rt-datepicker__input:focus {\n  border-color: #43b2da;\n}\n\n.rt-datepicker__calendar {\n  display: none;\n  position: absolute;\n  left: 0;\n}\n\n.rt-datepicker__calendar--show {\n  display: block;\n  -webkit-animation: fadeOut 0.3s ease-in forwards;\n          animation: fadeOut 0.3s ease-in forwards;\n}\n\n@-webkit-keyframes fadeOut {\n  0% {\n    opacity: 0;\n  }\n  100% {\n    opacity: 1;\n  }\n}\n\n@keyframes fadeOut {\n  0% {\n    opacity: 0;\n  }\n  100% {\n    opacity: 1;\n  }\n}");
 
 var Datepicker = function Datepicker(_ref) {
   var lang = _ref.lang,
@@ -4079,8 +4077,8 @@ var Datepicker = function Datepicker(_ref) {
     onKeyDown: handleKeyDownDate,
     placeholder: "yyyy-mm-dd"
   }), React.createElement("div", {
-    className: "rt-datepicker__calendar"
-  }, calendarShow && React.createElement(Calendar, {
+    className: "rt-datepicker__calendar ".concat(calendarShow ? 'rt-datepicker__calendar--show' : '')
+  }, React.createElement(Calendar, {
     lang: lang,
     date: date,
     onSelect: onSelect
