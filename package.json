@@ -48,6 +48,7 @@
   "dependencies": {
     "@babel/runtime-corejs3": "^7.8.4",
     "prop-types": "^15.7.2",
-    "react-i18next": "^11.3.3"
+    "react-i18next": "^11.3.3",
+    "react-onclickoutside": "^6.9.0"
   }
 }
