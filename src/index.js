@@ -1,4 +1,4 @@
-import './i18n';
+import Calendar from './components/Calendar/Calendar';
 
-// eslint-disable-next-line import/prefer-default-export
-export { default as Calendar } from './components/Calendar';
+export { Calendar };
+export default Calendar;

@@ -38,8 +38,10 @@ export default [{
     }),
     sass({
       insert: true,
-      processor: (css) => postcss([autoprefixer({ grid: 'autoplace' }), cssnano])
-        .process(css, { from: undefined }).then((result) => result.css),
+      processor: (css) => postcss([
+        autoprefixer({ grid: 'autoplace' }),
+        cssnano,
+      ]).process(css, { from: undefined }).then((result) => result.css),
     }),
     image(),
     terser(),

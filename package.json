@@ -8,6 +8,7 @@
     "build": "NODE_ENV=production rollup -c",
     "watch": "NODE_ENV=development rollup -c -w",
     "storybook": "start-storybook",
+    "storybook:build": "build-storybook -c .storybook -o ./demo",
     "lint": "eslint ./src"
   },
   "peerDependencies": {
@@ -45,7 +46,6 @@
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.8.4",
-    "i18next": "^19.3.2",
     "prop-types": "^15.7.2",
     "react-i18next": "^11.3.3"
   }
