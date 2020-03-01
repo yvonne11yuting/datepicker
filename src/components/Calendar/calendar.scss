@@ -17,12 +17,13 @@ $dark: #191919;
 .rt-calendar {
   font-family: "Noto Sans CJK TC", "PingFang TC", "Microsoft JhengHei", Verdana, sans-serif;
   width: 260px;
-  padding: 10px 0;
+  padding: 10px;
   color: $dark;
   font-size: 13px;
   font-weight: 500;
   border: 1px solid $gray;
   background: $white;
+  box-shadow: 1px 1px 3px 0 #00000012;
 }
 
 .rt-calendar__selected {
@@ -56,6 +57,10 @@ $dark: #191919;
 .rt-calendar__icon {
   width: 12px;
   height: 12px;
+  border-radius: 3px;
+  &:hover {
+    background-color: $gray;
+  }
 }
 
 .rt-calendar__header__cur-month {

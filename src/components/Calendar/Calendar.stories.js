@@ -1,6 +1,5 @@
 import React from 'react';
-import { Calendar } from '../../../libs/calendar.min';
-// import Calendar from './Calendar';
+import { Calendar } from '../../../libs/calendar';
 
 export default { title: 'Calendar' };
 

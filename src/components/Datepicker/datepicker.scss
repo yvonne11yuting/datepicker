@@ -1,0 +1,21 @@
+.rt-datepicker {
+  position: relative;
+  display: inline-block;
+}
+
+.rt-datepicker__input {
+  padding: 8px;
+  font-size: 13px;
+  border-radius: 3px;
+  border: 1px solid #eee;
+  outline: none;
+
+  &:focus {
+    border-color: #43b2da;
+  }
+}
+
+.rt-datepicker__calendar {
+  position: absolute;
+  left: 0;
+}

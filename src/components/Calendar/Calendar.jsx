@@ -1,16 +1,23 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import LOCALES from '../../locales';
-import { dateToAry, dateToObj } from '../../utils';
+import LOCALES from '@/locales';
+import {
+  dateToAry,
+  dateToObj,
+  dateToStr,
+  isValidDate,
+} from '../../utils';
 import Iconleft from '../../assets/icon_arrow_left.svg';
 import IconRight from '../../assets/icon_arrow_right.svg';
 import '../../polyfill/element_closest_polyfill';
 import './calendar.scss';
 
-const Calendar = ({ lang, date: initDate, onSelect }) => {
+const Calendar = ({ lang, date: rawDate, onSelect }) => {
+  // const isInit = useRef(true);
   const today = new Date();
   const todayStr = today.toLocaleDateString('zh').replace(/\//g, '');
+  const initDate = isValidDate(rawDate) ? rawDate : today;
   const YEAR_RANGE_NUM = 10;
   /**
    * mode 顯示模式
@@ -19,15 +26,18 @@ const Calendar = ({ lang, date: initDate, onSelect }) => {
    * 2: 年份
    * */
   const [mode, setMode] = useState(0);
-  const [renderDate, setRenderDate] = useState(dateToObj(initDate || today));
-  const [selectedDate, setSelectedDate] = useState('');
-  const [yearRangeStart, setYearRangeStart] = useState(Math.floor(renderDate.year / 10) * 10);
+  const [renderDate, setRenderDate] = useState(dateToObj(initDate));
+  const [selectedDateStr, setSelectedDateStr] = useState(dateToStr(initDate));
+  const yearRangeStart = useMemo(() => Math.floor(renderDate.year / 10) * 10, [renderDate]);
+
   useEffect(() => {
-    const updatedRangeStart = Math.floor(renderDate.year / 10) * 10;
-    if (updatedRangeStart !== yearRangeStart) {
-      setYearRangeStart(updatedRangeStart);
+    if (isValidDate(rawDate)) {
+      console.log(rawDate)
+      const formattedDateStr = rawDate.replace(/(-)0(\d{1})/g, '$1$2');
+      setRenderDate(dateToObj(rawDate));
+      setSelectedDateStr(formattedDateStr);
     }
-  }, [renderDate]);
+  }, [rawDate]);
 
 
   const LANG_SRC = LOCALES[lang];
@@ -126,7 +136,7 @@ const Calendar = ({ lang, date: initDate, onSelect }) => {
     const $date = e.target.closest('div');
     const { date } = $date.dataset;
     if (date) {
-      setSelectedDate(date);
+      setSelectedDateStr(date);
       onSelect(new Date(date));
     }
   };
@@ -150,8 +160,8 @@ const Calendar = ({ lang, date: initDate, onSelect }) => {
   };
 
   const handleKeyboardActionEvent = (e, handler) => {
-    const isLeft = (e.code && e.code === 'ArrowLeft') || (e.keyCode && e.keyCode === 37);
-    const isRight = (e.code && e.code === 'ArrowRight') || (e.keyCode && e.keyCode === 39);
+    const isLeft = e.key === 'ArrowLeft';
+    const isRight = e.key === 'ArrowRight';
     if (isLeft) {
       handler(e, -1);
     } else if (isRight) {
@@ -210,13 +220,13 @@ const Calendar = ({ lang, date: initDate, onSelect }) => {
                 aria-label="select date"
                 onClick={handleDateSelect}
               >
-                { getDays({ ...renderDate, selectedDate }).map(({
+                { getDays({ ...renderDate, selectedDateStr }).map(({
                   isCurMonth,
                   isToday,
                   ...dateInfo
                 }) => {
                   const dateInfoStr = Object.values(dateInfo).join('-');
-                  const isSelectedDate = selectedDate && selectedDate === dateInfoStr;
+                  const isSelectedDate = selectedDateStr && selectedDateStr === dateInfoStr;
                   const outsideClass = !isCurMonth ? 'rt-calendar__outside' : '';
                   const selectedClass = isSelectedDate ? 'rt-calendar__selected' : '';
                   const todayClass = isToday && !isSelectedDate ? 'rt-calendar__date__day--today' : '';
@@ -302,7 +312,7 @@ Calendar.propTypes = {
 
 Calendar.defaultProps = {
   lang: 'en',
-  date: null,
+  date: '',
   onSelect: () => {},
 };
 
