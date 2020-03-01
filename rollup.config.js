@@ -10,14 +10,52 @@ import autoprefixer from 'autoprefixer';
 import postcss from 'postcss';
 import cssnano from 'cssnano';
 import filesize from 'rollup-plugin-filesize';
+import alias from '@rollup/plugin-alias';
 
+const isDevMode = process.env.NODE_ENV === 'development';
+const input = './src/index';
 const globals = {
   react: 'React',
   'prop-types': 'PropTypes',
 };
 
-export default [{
-  input: './src/index',
+export default isDevMode ? [{
+  input,
+  output: [
+    {
+      file: './libs/calendar.js',
+      format: 'es',
+      name: 'calendar',
+      globals,
+    },
+  ],
+  plugins: [
+    alias({
+      entries: {
+        '@': './src',
+      },
+    }),
+    resolve({
+      extensions: ['.js', '.jsx'],
+    }),
+    peerDepsExternal(),
+    commonjs(),
+    babel({
+      runtimeHelpers: true,
+      exclude: ['node_modules/**'],
+    }),
+    sass({
+      insert: true,
+      processor: (css) => postcss([
+        autoprefixer({ grid: 'autoplace' }),
+      ]).process(css, { from: undefined }).then((result) => result.css),
+    }),
+    image(),
+    filesize(),
+  ],
+  external: ['react', 'react-dom'],
+}] : [{
+  input,
   output: [
     {
       file: './libs/calendar.min.js',
