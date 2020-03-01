@@ -1,7 +1,7 @@
-export const dateToAry = (date) => {
-  const convertedDate = new Date(date);
-  const [m, d, y] = convertedDate.toLocaleDateString('en-US').split('/');
-  return [+y, +m, +d, +convertedDate.getDay()];
+export const dateToAry = (rawDate) => {
+  const newDate = new Date(rawDate);
+  const [month, date, year] = newDate.toLocaleDateString('en-US').split('/');
+  return [+year, +month, +date];
 };
 
 export const dateToObj = (rawDate) => {
