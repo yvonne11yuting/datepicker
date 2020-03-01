@@ -1,4 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
+import path from 'path';
 import { terser } from 'rollup-plugin-terser';
 import babel from 'rollup-plugin-babel';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
@@ -32,7 +33,7 @@ export default isDevMode ? [{
   plugins: [
     alias({
       entries: {
-        '@': './src',
+        '@': path.resolve(__dirname, './src'),
       },
     }),
     resolve({
@@ -65,6 +66,11 @@ export default isDevMode ? [{
     },
   ],
   plugins: [
+    alias({
+      entries: {
+        '@': './src',
+      },
+    }),
     resolve({
       extensions: ['.js', '.jsx'],
     }),

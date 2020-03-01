@@ -7,14 +7,13 @@ import {
   dateToObj,
   dateToStr,
   isValidDate,
-} from '../../utils';
-import Iconleft from '../../assets/icon_arrow_left.svg';
-import IconRight from '../../assets/icon_arrow_right.svg';
-import '../../polyfill/element_closest_polyfill';
+} from '@/utils';
+import Iconleft from '@/assets/icon_arrow_left.svg';
+import IconRight from '@/assets/icon_arrow_right.svg';
+import '@/polyfill/element_closest_polyfill';
 import './calendar.scss';
 
 const Calendar = ({ lang, date: rawDate, onSelect }) => {
-  // const isInit = useRef(true);
   const today = new Date();
   const todayStr = today.toLocaleDateString('zh').replace(/\//g, '');
   const initDate = isValidDate(rawDate) ? rawDate : today;
@@ -32,7 +31,6 @@ const Calendar = ({ lang, date: rawDate, onSelect }) => {
 
   useEffect(() => {
     if (isValidDate(rawDate)) {
-      console.log(rawDate)
       const formattedDateStr = rawDate.replace(/(-)0(\d{1})/g, '$1$2');
       setRenderDate(dateToObj(rawDate));
       setSelectedDateStr(formattedDateStr);
