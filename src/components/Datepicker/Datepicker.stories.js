@@ -1,7 +1,9 @@
 import React from 'react';
-import Datepicker from '../../../libs/calendar';
+import { Datepicker } from '../../../libs/calendar_datepicker';
 
-export default { title: 'Datepicker' };
+export default {
+  title: 'Datepicker',
+};
 
 export const mainEn = () => (
   <div>

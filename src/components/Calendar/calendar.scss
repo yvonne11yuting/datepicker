@@ -2,6 +2,7 @@ $white: #fff;
 $red: #db3d44;
 $gray: #eee;
 $dark: #191919;
+$phone-width: 414px;
 
 %default-option {
   display: inline-flex;
@@ -15,6 +16,7 @@ $dark: #191919;
 }
 
 .rt-calendar {
+  -webkit-text-size-adjust: 100%;
   font-family: "Noto Sans CJK TC", "PingFang TC", "Microsoft JhengHei", Verdana, sans-serif;
   width: 260px;
   padding: 10px;
@@ -24,6 +26,10 @@ $dark: #191919;
   border: 1px solid $gray;
   background: $white;
   box-shadow: 1px 1px 3px 0 #00000012;
+
+  @media (max-width: $phone-width) {
+    width: inherit;
+  }
 }
 
 .rt-calendar__selected {

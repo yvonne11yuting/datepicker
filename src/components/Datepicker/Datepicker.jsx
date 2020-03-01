@@ -5,15 +5,16 @@ import Calendar from '@/components/Calendar/Calendar';
 import { dateToStr } from '@/utils';
 import './datepicker.scss';
 
-const Datepicker = ({ lang, date: initDate }) => {
+const Datepicker = ({ lang, date: initDate, onSelect }) => {
   const [date, setDate] = useState(initDate);
   const [calendarShow, setCalendarShow] = useState(false);
 
   Datepicker.handleClickOutside = () => setCalendarShow(false);
 
-  const onSelect = (selectedDate) => {
+  const handleSelect = (selectedDate) => {
     const dataStr = dateToStr(selectedDate, true);
     setDate(dataStr);
+    onSelect(dataStr);
   };
 
   const handleDate = (e) => {
@@ -47,7 +48,7 @@ const Datepicker = ({ lang, date: initDate }) => {
         placeholder="yyyy-mm-dd"
       />
       <div className={`rt-datepicker__calendar ${ calendarShow ? 'rt-datepicker__calendar--show' : '' }`}>
-        <Calendar lang={lang} date={date} onSelect={onSelect} />
+        <Calendar lang={lang} date={date} onSelect={handleSelect} />
       </div>
     </div>
   );
@@ -56,11 +57,13 @@ const Datepicker = ({ lang, date: initDate }) => {
 Datepicker.propTypes = {
   lang: PropTypes.string,
   date: PropTypes.string,
+  onSelect: PropTypes.func,
 };
 
 Datepicker.defaultProps = {
   lang: 'en',
   date: '',
+  onSelect: () => {},
 };
 
 const clickOutsideConfig = {
