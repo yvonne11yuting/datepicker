@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import onClickOutside from 'react-onclickoutside';
-import Calendar from '../Calendar/Calendar';
-import { dateToStr } from '../../utils';
+import Calendar from '@/components/Calendar/Calendar';
+import { dateToStr } from '@/utils';
 import './datepicker.scss';
 
 const Datepicker = ({ lang, date: initDate }) => {
@@ -36,9 +36,7 @@ const Datepicker = ({ lang, date: initDate }) => {
   };
 
   return (
-    <div
-      className="rt-datepicker"
-    >
+    <div className="rt-datepicker">
       <input
         className="rt-datepicker__input"
         type="text"
@@ -48,10 +46,8 @@ const Datepicker = ({ lang, date: initDate }) => {
         onKeyDown={handleKeyDownDate}
         placeholder="yyyy-mm-dd"
       />
-      <div className="rt-datepicker__calendar">
-        {
-          calendarShow && <Calendar lang={lang} date={date} onSelect={onSelect} />
-        }
+      <div className={`rt-datepicker__calendar ${ calendarShow ? 'rt-datepicker__calendar--show' : '' }`}>
+        <Calendar lang={lang} date={date} onSelect={onSelect} />
       </div>
     </div>
   );

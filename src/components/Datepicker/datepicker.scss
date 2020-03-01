@@ -16,6 +16,17 @@
 }
 
 .rt-datepicker__calendar {
+  display: none;
   position: absolute;
   left: 0;
+}
+
+.rt-datepicker__calendar--show {
+  display: block;
+  animation: fadeOut .3s ease-in forwards;
+}
+
+@keyframes fadeOut {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }
