@@ -9,7 +9,8 @@
     "watch": "NODE_ENV=development rollup -c -w",
     "storybook": "start-storybook",
     "storybook:build": "build-storybook -c .storybook -o demo",
-    "lint": "eslint ./src"
+    "lint": "eslint ./src",
+    "chromatic": "chromatic --project-token=CHROMATIC_PROJECT_TOKEN"
   },
   "peerDependencies": {
     "react": "^16.13.0",
@@ -28,6 +29,7 @@
     "@storybook/react": "^5.3.14",
     "autoprefixer": "^9.7.4",
     "babel-loader": "^8.0.6",
+    "chromatic": "^5.9.2",
     "css-loader": "^5.2.6",
     "cssnano": "^4.1.10",
     "eslint": "^6.8.0",
