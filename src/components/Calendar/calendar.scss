@@ -1,5 +1,5 @@
 $white: #fff;
-$red: #db3d44;
+$red: skyblue;
 $gray: #eee;
 $dark: #191919;
 $phone-width: 414px;
@@ -35,6 +35,7 @@ $phone-width: 414px;
 .rt-calendar__selected {
   color: $white;
   background-color: $red;
+  font-size: 1.5rem;
 }
 
 .rt-calendar__outside {
