@@ -201,6 +201,7 @@ const Calendar = ({ lang, date: rawDate, onSelect }) => {
             <img src={IconRight} alt="next month" />
           </button>
         </div>
+        <hr />
       </div>
       <div className="rt-calendar__main">
         {
